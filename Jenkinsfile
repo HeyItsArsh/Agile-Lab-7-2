@@ -6,14 +6,14 @@ pipeline {
         git branch: 'main', url: 'https://github.com/HeyItsArsh/Agile-Lab-7-2.git'
       }
     }
-    stage('Show Parameter') {
+    stage('Generate Report') {
       steps {
-        echo "Selected Environment: ${params.ENVIRONMENT}"
+        bat 'python app.py'
       }
     }
-    stage('Build for Environment') {
+    stage('Archive Report') {
       steps {
-        echo "Building the Application for the ${params.ENVIRONMENT} Environment..."
+        archiveArtifacts artifacts: 'report.txt', fingerprint: true
       }
     }
   }
